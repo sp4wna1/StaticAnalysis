@@ -1,0 +1,33 @@
+configurations {
+    detekt
+}
+
+dependencies {
+    detekt libraries.detekt
+}
+
+def static execute(cmd, output) {
+    cmd.execute().waitForProcessOutput(output, System.err)
+}
+
+task detektVerification(group: "verification") {
+    description = "Check Kotlin code smells, code complexity based on detekt-config.yml."
+
+    doFirst {
+        new ByteArrayOutputStream().withStream { output ->
+
+            execute("./config/arquivosModificados.sh origin/master detekt", output)
+
+            if (!"$output".isEmpty()) {
+                javaexec {
+                    main = "io.gitlab.arturbosch.detekt.cli.Main"
+                    classpath = configurations.detekt
+                    def dir = "$rootDir/config/detekt"
+                    def config = "$dir/detekt-config.yml"
+                    def params = ["-i", "$output", "-c", config]
+                    args(params)
+                }
+            }
+        }
+    }
+}
