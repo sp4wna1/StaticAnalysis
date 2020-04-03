@@ -1,0 +1,27 @@
+configurations {
+    ktlint
+}
+dependencies {
+    ktlint libraries.ktlint
+}
+def static execute(cmd, output) {
+    cmd.execute().waitForProcessOutput(output, System.err)
+}
+task ktlintVerification(group: "verification") {
+    description = "Check Kotlin code style."
+
+    doFirst {
+        new ByteArrayOutputStream().withStream { output ->
+
+            execute("./config/arquivosModificados.sh origin/master ktlint", output)
+
+            if (!"$output".isEmpty()) {
+                javaexec {
+                    classpath = configurations.ktlint
+                    main = "com.pinterest.ktlint.Main"
+                    args "$output".split("\n")
+                }
+            }
+        }
+    }
+}

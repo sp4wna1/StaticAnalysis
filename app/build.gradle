@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "${rootDir}/config/detekt/detekt.gradle"
+apply from: "${rootDir}/config/ktlint/ktlint.gradle"
 
 android {
     compileSdkVersion 29
