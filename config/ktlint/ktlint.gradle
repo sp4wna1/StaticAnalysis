@@ -4,9 +4,11 @@ configurations {
 dependencies {
     ktlint libraries.ktlint
 }
+
 def static execute(cmd, output) {
     cmd.execute().waitForProcessOutput(output, System.err)
 }
+
 task ktlintVerification(group: "verification") {
     description = "Check Kotlin code style."
 
@@ -19,10 +21,10 @@ task ktlintVerification(group: "verification") {
                 javaexec {
                     classpath = configurations.ktlint
                     main = "com.pinterest.ktlint.Main"
+                    def parameters = "--reporter=checkstyle,output=${buildDir}/reports/ktlint/ktlint-report.xml"
+                    args parameters
                     args "$output".split("\n")
                 }
-            } else {
-                print("What")
             }
         }
     }
