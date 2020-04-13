@@ -16,7 +16,7 @@ task detektVerification(group: "verification") {
     doFirst {
         new ByteArrayOutputStream().withStream { output ->
 
-            execute("./config/arquivosModificados.sh origin/master detekt", output)
+            execute("./arquivosModificados.sh origin/master detekt", output)
 
             if (!"$output".isEmpty()) {
                 javaexec {

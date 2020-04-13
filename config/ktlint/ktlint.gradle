@@ -13,7 +13,7 @@ task ktlintVerification(group: "verification") {
     doFirst {
         new ByteArrayOutputStream().withStream { output ->
 
-            execute("./config/arquivosModificados.sh origin/master ktlint", output)
+            execute("./arquivosModificados.sh origin/master ktlint", output)
 
             if (!"$output".isEmpty()) {
                 javaexec {
@@ -21,6 +21,8 @@ task ktlintVerification(group: "verification") {
                     main = "com.pinterest.ktlint.Main"
                     args "$output".split("\n")
                 }
+            } else {
+                print("What")
             }
         }
     }
