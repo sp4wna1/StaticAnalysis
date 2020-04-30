@@ -11,9 +11,11 @@ task detektVerification(type: JavaExec, group: "verification") {
 
     main = "io.gitlab.arturbosch.detekt.cli.Main"
     classpath = configurations.detekt
+
     def input = "$projectDir"
     def dir = "$rootDir/config/detekt"
     def config = "$dir/detekt-config.yml"
-    def params = ["-i", input, "-c", config]
+    def report = "xml:$buildDir/reports/detekt.xml"
+    def params = ["-i", input, "-c", config, "-r", report]
     args(params)
 }
