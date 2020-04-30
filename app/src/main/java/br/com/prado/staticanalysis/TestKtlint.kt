@@ -2,16 +2,15 @@ package br.com.prado.staticanalysis
 
 import java.util.*
 
-class TestKtlint {
+class TestKtlint
 
-}
+class A
 
-class A {}
+class B
 
+fun G() {}
 
-class B {}
-
-fun f(): Unit {}
+fun f() {}
 
 /* OUTPUT da Task Gradle
 
