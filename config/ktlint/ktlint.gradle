@@ -5,27 +5,9 @@ dependencies {
     ktlint libraries.ktlint
 }
 
-def static execute(cmd, output) {
-    cmd.execute().waitForProcessOutput(output, System.err)
-}
-
-task ktlintVerification(group: "verification") {
+task ktlintVerification(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
-
-    doFirst {
-        new ByteArrayOutputStream().withStream { output ->
-
-            execute("./arquivosModificados.sh origin/master ktlint", output)
-
-            if (!"$output".isEmpty()) {
-                javaexec {
-                    classpath = configurations.ktlint
-                    main = "com.pinterest.ktlint.Main"
-                    def parameters = "--reporter=checkstyle,output=${buildDir}/reports/ktlint/ktlint-report.xml"
-                    args parameters
-                    args "$output".split("\n")
-                }
-            }
-        }
-    }
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt"
 }
