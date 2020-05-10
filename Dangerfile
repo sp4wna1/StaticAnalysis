@@ -5,4 +5,4 @@ kotlin_detekt.detekt
 
 checkstyle_format.base_path = Dir.pwd
 checkstyle_format.gradle_task = "ktlintVerification"
-checkstyle_format.report = "app/build/reports/ktlint/ktlint-checkstyle.xml"
+checkstyle_format.report 'app/build/reports/ktlint/ktlint-checkstyle.xml'
