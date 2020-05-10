@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/sp4wna1/danger-checkstyle_format
-  revision: a38a35b15f12a7ee00509920977b939ff46b4ae1
+  revision: 3df9a0ab7ee1cdc6ec0901f3cb2a67f60a758dc4
   specs:
     danger-checkstyle_format (0.1.0)
       danger-plugin-api (~> 1.0)
